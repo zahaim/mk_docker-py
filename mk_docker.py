@@ -34,7 +34,8 @@ try:
         str(mem_usage) + ';;;0;' + str(mem_total) + '|' \
         'NET_' + container.name + '=' + \
         str(mem_usage) + ';;;0;|'
-    data = data + 'RUNNING_CONTAINERS=' + str(len(containers))
+    running = 'RUNNING_CONTAINERS=' + str(len(containers))
+    data = data + running + ' ' + running 
 except KeyError:
     status = '1'
     data = data + 'No running containers!'

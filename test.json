@@ -1,0 +1,21 @@
+{u'blkio_stats':
+  {u'io_service_time_recursive': [], u'sectors_recursive': [],
+    u'io_service_bytes_recursive':
+    [{u'major': 8, u'value': 606208, u'minor': 0, u'op': u'Read'}, {u'major': 8, u'value': 0, u'minor': 0, u'op': u'Write'}, {u'major': 8, u'value': 0, u'minor': 0, u'op': u'Sync'}, {u'major': 8, u'value': 606208, u'minor': 0, u'op': u'Async'}, {u'major': 8, u'value': 606208, u'minor': 0, u'op': u'Total'}, {u'major': 252, u'value': 606208, u'minor': 0, u'op': u'Read'}, {u'major': 252, u'value': 0, u'minor': 0, u'op': u'Write'}, {u'major': 252, u'value': 0, u'minor': 0, u'op': u'Sync'}, {u'major': 252, u'value': 606208, u'minor': 0, u'op': u'Async'}, {u'major': 252, u'value': 606208, u'minor': 0, u'op': u'Total'}, {u'major': 252, u'value': 606208, u'minor': 1, u'op': u'Read'}, {u'major': 252, u'value': 0, u'minor': 1, u'op': u'Write'}, {u'major': 252, u'value': 0, u'minor': 1, u'op': u'Sync'}, {u'major': 252, u'value': 606208, u'minor': 1, u'op': u'Async'}, {u'major': 252, u'value': 606208, u'minor': 1, u'op': u'Total'}],
+    u'io_serviced_recursive':
+    [{u'major': 8, u'value': 32, u'minor': 0, u'op': u'Read'}, {u'major': 8, u'value': 0, u'minor': 0, u'op': u'Write'}, {u'major': 8, u'value': 0, u'minor': 0, u'op': u'Sync'}, {u'major': 8, u'value': 32, u'minor': 0, u'op': u'Async'}, {u'major': 8, u'value': 32, u'minor': 0, u'op': u'Total'}, {u'major': 252, u'value': 32, u'minor': 0, u'op': u'Read'}, {u'major': 252, u'value': 0, u'minor': 0, u'op': u'Write'}, {u'major': 252, u'value': 0, u'minor': 0, u'op': u'Sync'}, {u'major': 252, u'value': 32, u'minor': 0, u'op': u'Async'}, {u'major': 252, u'value': 32, u'minor': 0, u'op': u'Total'}, {u'major': 252, u'value': 32, u'minor': 1, u'op': u'Read'}, {u'major': 252, u'value': 0, u'minor': 1, u'op': u'Write'}, {u'major': 252, u'value': 0, u'minor': 1, u'op': u'Sync'}, {u'major': 252, u'value': 32, u'minor': 1, u'op': u'Async'}, {u'major': 252, u'value': 32, u'minor': 1, u'op': u'Total'}],
+    u'io_time_recursive': [],
+    u'io_queue_recursive': [],
+    u'io_merged_recursive': [],
+    u'io_wait_time_recursive': []},
+  u'precpu_stats': {u'cpu_usage': {u'usage_in_usermode': 5540000000, u'total_usage': 21759272163, u'percpu_usage': [2469274105, 2824510353, 2527869630, 2932736111, 2566983409, 3038057155, 2592635330, 2807206070], u'usage_in_kernelmode': 15440000000}, u'system_cpu_usage': 379516540000000, u'online_cpus': 8, u'throttling_data': {u'throttled_time': 0, u'periods': 0, u'throttled_periods': 0}},
+  u'name': u'/nervous_mirzakhani',
+  u'read': u'2017-04-20T08:52:48.12585876Z',
+  u'storage_stats': {},
+  u'networks': {u'eth0': {u'tx_dropped': 0, u'rx_packets': 2156, u'rx_bytes': 344639, u'tx_errors': 0, u'rx_errors': 0, u'tx_bytes': 0, u'rx_dropped': 0, u'tx_packets': 0}},
+  u'num_procs': 0,
+  u'preread': u'2017-04-20T08:52:47.125892355Z',
+  u'memory_stats': {u'usage': 794624, u'limit': 16703262720, u'stats': {u'unevictable': 0, u'total_inactive_file': 4096, u'total_rss_huge': 0, u'writeback': 0, u'total_cache': 606208, u'total_mapped_file': 503808, u'mapped_file': 503808, u'pgfault': 1600505, u'total_writeback': 0, u'hierarchical_memory_limit': 9223372036854771712, u'total_active_file': 602112, u'rss_huge': 0, u'cache': 606208, u'active_anon': 24576, u'pgmajfault': 12, u'total_pgpgout': 537784, u'pgpgout': 537784, u'total_active_anon': 24576, u'total_unevictable': 0, u'total_pgfault': 1600505, u'total_pgmajfault': 12, u'total_inactive_anon': 40960, u'inactive_file': 4096, u'pgpgin': 537956, u'total_dirty': 0, u'total_pgpgin': 537956, u'rss': 98304, u'active_file': 602112, u'inactive_anon': 40960, u'dirty': 0, u'total_rss': 98304}, u'max_usage': 1343488},
+  u'pids_stats': {u'current': 2},
+  u'id': u'5a26304a753946058325e6fd88962c0a44802d88c42ecb58ba7c2ceacaa5236f',
+  u'cpu_stats': {u'cpu_usage': {u'usage_in_usermode': 5540000000, u'total_usage': 21759831591, u'percpu_usage': [2469274105, 2824612771, 2528021603, 2932736111, 2567039454, 3038057155, 2592635330, 2807455062], u'usage_in_kernelmode': 15450000000}, u'system_cpu_usage': 379524450000000, u'online_cpus': 8, u'throttling_data': {u'throttled_time': 0, u'periods': 0, u'throttled_periods': 0}}}

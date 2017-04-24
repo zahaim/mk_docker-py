@@ -15,7 +15,7 @@ ver = client.version()
 # variables
 status = '0'
 data = ' Container-check '
-containers = client.containers.list('status=running')
+containers = client.containers.list()
 
 try:
     for container in containers:
@@ -35,7 +35,7 @@ try:
         'NET_' + container.name + '=' + \
         str(mem_usage) + ';;;0;|'
     running = 'RUNNING_CONTAINERS=' + str(len(containers))
-    data = data + running + ' ' + running 
+    data = data + running + ' ' + running
 except KeyError:
     status = '1'
     data = data + 'No running containers!'

@@ -40,5 +40,5 @@ except KeyError:
     status = '1'
     data = data + 'No running containers!'
 finally:
-    message = status + data
+    message = status + data + ' Docker ver: ' + ver['Version']
     print message

@@ -5,16 +5,28 @@ import docker
 
 # config
 client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-ver = client.version()
+
+# variables
+status = '0'
+data = ' Container-check '
+
+# checking if docker is installed
+try:
+    ver = client.version()
+    version = ver['Version']
+except requests.exceptions.ConnectionError:
+    status = '1'
+    version = 'Docker not installed'
+finally:
+    message = status + data + ' Docker ver: ' + version
+    print message
 
 # handling containers (tests)
 # for container in client.containers.list(all):
     # container.start()
     # container.stop()
 
-# variables
-status = '0'
-data = ' Container-check '
+# build running container list
 containers = client.containers.list()
 
 try:
@@ -40,5 +52,5 @@ except KeyError:
     status = '1'
     data = data + 'No running containers!'
 finally:
-    message = status + data + ' Docker ver: ' + ver['Version']
+    message = status + data + ' Docker ver: ' + version
     print message

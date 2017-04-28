@@ -11,14 +11,14 @@ status = '0'
 data = ' Container-check '
 
 # checking if docker is installed
-# try:
-ver = client.version()
-version = ver['Version']
-# except requests.exceptions.ConnectionError:
-#     status = '1'
-#     version = 'Docker not installed'
-#     message = status + data + ' Docker ver: ' + version
-#     print message
+try:
+    ver = client.version()
+    version = ver['Version']
+except ConnectionError:
+    status = '1'
+    version = 'Docker not installed'
+    message = status + data + ' Docker ver: ' + version
+    print message
 
 # handling containers (tests)
 # for container in client.containers.list(all):

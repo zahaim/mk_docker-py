@@ -17,7 +17,6 @@ try:
 except requests.exceptions.ConnectionError:
     status = '1'
     version = 'Docker not installed'
-finally:
     message = status + data + ' Docker ver: ' + version
     print message
 

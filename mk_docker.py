@@ -2,6 +2,7 @@
 # created by jan.szczyra@ista.com
 
 import docker
+import requests
 
 # config
 client = docker.DockerClient(base_url='unix://var/run/docker.sock')
@@ -14,7 +15,7 @@ data = ' Container-check '
 try:
     ver = client.version()
     version = ver['Version']
-except ConnectionError:
+except requests.exceptions.ConnectionError:
     status = '1'
     version = 'Docker not installed'
     message = status + data + ' Docker ver: ' + version

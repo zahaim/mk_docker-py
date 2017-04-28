@@ -34,10 +34,10 @@ missing module named ce - imported by os
 missing module named _emx_link - imported by os
 missing module named os2 - imported by os
 missing module named nt - imported by os, ntpath
-missing module named 'urllib.parse' - imported by requests.packages.urllib3.request, requests.packages.urllib3.poolmanager, urllib3.request, urllib3.poolmanager, requests.compat, docker.utils.utils
 missing module named 'http.cookies' - imported by requests.compat
 missing module named http - imported by requests.packages.urllib3.connection, requests.compat
 missing module named 'urllib.request' - imported by requests.compat
+missing module named 'urllib.parse' - imported by requests.packages.urllib3.request, requests.packages.urllib3.poolmanager, urllib3.request, urllib3.poolmanager, requests.compat, docker.utils.utils
 missing module named builtins - imported by requests.packages.urllib3.packages.six
 missing module named 'requests.packages.urllib3.packages.six.moves' - imported by requests.packages.urllib3.util.response, requests.packages.urllib3.response
 missing module named 'http.client' - imported by requests.packages.urllib3.connection, urllib3.connection, docker.transport.unixconn, docker.transport.npipeconn

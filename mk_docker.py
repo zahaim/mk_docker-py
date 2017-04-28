@@ -20,6 +20,7 @@ except requests.exceptions.ConnectionError:
     version = 'Docker not installed'
     message = status + data + ' Docker ver: ' + version
     print message
+    sys.exit(1)
 
 # handling containers (tests)
 # for container in client.containers.list(all):

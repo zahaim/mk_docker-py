@@ -21,6 +21,12 @@ except requests.exceptions.ConnectionError:
     message = status + data + ' Docker ver: ' + version
     print message
     sys.exit(1)
+except docker.errors.APIError:
+    status = '1'
+    version = 'Docker API not compatibile'
+    message = status + data + ' Docker ver: ' + version
+    print message
+    sys.exit(1)
 
 # handling containers (tests)
 # for container in client.containers.list(all):

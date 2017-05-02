@@ -11,18 +11,20 @@ client = docker.DockerClient(base_url='unix://var/run/docker.sock')
 status = '0'
 data = ' Container-check '
 
-# checking if docker is installed
+# checking if docker is installed and if API is recent
 try:
     ver = client.version()
     version = ver['Version']
 except requests.exceptions.ConnectionError:
     status = '1'
+    data = data + 'RUNNING_CONTAINERS=0'
     version = 'Docker not installed'
     message = status + data + ' Docker ver: ' + version
     print message
     sys.exit(1)
 except docker.errors.APIError:
     status = '1'
+    data = data + 'RUNNING_CONTAINERS=0'
     version = 'Docker API not compatibile'
     message = status + data + ' Docker ver: ' + version
     print message

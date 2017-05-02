@@ -47,7 +47,10 @@ try:
         cpu_total = stat['cpu_stats']['system_cpu_usage']
         mem_usage = stat['memory_stats']['usage']
         mem_total = stat['memory_stats']['limit']
-        net_total = stat['networks'].values()[0]['rx_bytes'] + stat['networks'].values()[0]['tx_bytes']
+        try:
+            net_total = stat['networks'].values()[0]['rx_bytes'] + stat['networks'].values()[0]['tx_bytes']
+        except KeyError:
+            net_total = 0
         data = data + \
         'CPU_' + container.name + '=' + \
         str(cpu_usage) + ';;;0;' + str(cpu_total) + '|' \

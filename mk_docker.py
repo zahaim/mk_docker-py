@@ -44,9 +44,10 @@ try:
         # print repr(stat)
         # print container.name
         cpu_usage = stat['cpu_stats']['cpu_usage']['total_usage']
-        cpu_total = stat['cpu_stats']['system_cpu_usage']
+        cpu_total = stat['cpu_stats']['system_cpu_usage']/1024
         mem_usage = stat['memory_stats']['usage']
         mem_total = stat['memory_stats']['limit']
+        # handling non-networked containers
         try:
             net_total = stat['networks'].values()[0]['rx_bytes'] + stat['networks'].values()[0]['tx_bytes']
         except KeyError:

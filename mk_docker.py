@@ -44,7 +44,7 @@ try:
         # print repr(stat)
         # print container.name
         cpu_usage = stat['cpu_stats']['cpu_usage']['total_usage']
-        cpu_total = stat['cpu_stats']['system_cpu_usage']/100
+        # cpu_total = stat['cpu_stats']['system_cpu_usage']
         mem_usage = stat['memory_stats']['usage']
         mem_total = stat['memory_stats']['limit']
         # handling non-networked containers
@@ -54,7 +54,7 @@ try:
             net_total = 0
         data = data + \
         'CPU_' + container.name + '=' + \
-        str(cpu_usage) + ';;;0;' + str(cpu_total) + '|' \
+        str(cpu_usage) + ';;;0;;' + '|' \
         'MEM_' + container.name + '=' + \
         str(mem_usage) + ';;;0;' + str(mem_total) + '|' \
         'NET_' + container.name + '=' + \

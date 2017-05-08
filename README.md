@@ -1,4 +1,7 @@
 # Check_mk plugin for checking docker
+
+## Just wanted to have a check for all containers.
+
 ## Checks
 * memory
 * cpu

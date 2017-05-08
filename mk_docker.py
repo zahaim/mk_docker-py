@@ -12,46 +12,6 @@ client = docker.DockerClient(base_url='unix://var/run/docker.sock')
 status = '0'
 data = ' Container-check '
 
-def main():
-    # variables
-    global status
-    global data
-    version = docker_check()
-    version = str(version)
-
-    # build running container list
-    containers = client.containers.list()
-
-    try:
-        for container in containers:
-            stat = container.stats(decode=False, stream=False)
-            # print repr(stat)
-            # print container.name
-            cpu_usage = stat['cpu_stats']['cpu_usage']['total_usage']
-            # cpu_total = stat['cpu_stats']['system_cpu_usage']
-            mem_usage = stat['memory_stats']['usage']
-            mem_total = stat['memory_stats']['limit']
-            # handling non-networked containers
-            try:
-                net_total = stat['networks'].values()[0]['rx_bytes'] + stat['networks'].values()[0]['tx_bytes']
-            except KeyError:
-                net_total = 0
-            data = data + \
-            'CPU_' + container.name + '=' + \
-            str(cpu_usage) + ';;;0;;' + '|' \
-            'MEM_' + container.name + '=' + \
-            str(mem_usage) + ';;;0;' + str(mem_total) + '|' \
-            'NET_' + container.name + '=' + \
-            str(mem_usage) + ';;;0;|'
-        running = 'RUNNING_CONTAINERS=' + str(len(containers))
-        data = data + running + ' ' + running
-    except KeyError:
-        status = '1'
-        data = data + 'No running containers!'
-    finally:
-        message = status + data + ' Docker ver: ' + version
-        print message
-
 def docker_check():
     # variables
     global status
@@ -77,6 +37,60 @@ def docker_check():
         sys.exit(1)
 
         return version
+
+def calculate_CPU_percent(stat):
+    cpu_Delta = stat['cpu_stats']['cpu_usage']['total_usage'] - stat['precpu_stats']['cpu_usage']['total_usage']
+    system_Delta = stat['cpu_stats']['system_cpu_usage'] - stat['precpu_stats']['system_cpu_usage']
+    cpu_percent = str(float(cpu_Delta)/system_Delta * \
+    len(stat['cpu_stats']['cpu_usage']['percpu_usage']) * 100)
+
+    return cpu_percent
+
+def main():
+    # variables
+    global status
+    global data
+    # checking the version of docker installed (or not)
+    version = docker_check()
+    version = str(version)
+
+    # build running container list
+    containers = client.containers.list()
+
+    try:
+        for container in containers:
+            stat = container.stats(decode=False, stream=False)
+
+            # for debuging
+            # print repr(stat)
+            # print container.name
+
+            # calculating CPU usage
+            cpu_usage = calculate_CPU_percent(stat)
+            # getting MEM and NET data from stat
+            mem_usage = str(stat['memory_stats']['usage'])
+            mem_total = str(stat['memory_stats']['limit'])
+            # handling containers using host=net
+            try:
+                net_total = str(stat['networks'].values()[0]['rx_bytes'] + \
+                stat['networks'].values()[0]['tx_bytes'])
+            except KeyError:
+                net_total = 0
+            data = data + \
+            'CPU_' + container.name + '=' + \
+            cpu_usage + ';;;0;100' + '|' \
+            'MEM_' + container.name + '=' + \
+            mem_usage + ';;;0;' + mem_total + '|' \
+            'NET_' + container.name + '=' + \
+            mem_usage + ';;;0;|'
+        running = 'RUNNING_CONTAINERS=' + str(len(containers))
+        data = data + running + ' ' + running
+    except KeyError:
+        status = '1'
+        data = data + 'No running containers!'
+    finally:
+        message = status + data + ' Docker ver: ' + version
+        print message
 
 if __name__ == '__main__':
     main()

@@ -36,7 +36,7 @@ def docker_check():
         print message
         sys.exit(1)
 
-        return version
+    return version
 
 def calculate_CPU_percent(stat):
     cpu_Delta = stat['cpu_stats']['cpu_usage']['total_usage'] - stat['precpu_stats']['cpu_usage']['total_usage']
@@ -51,8 +51,8 @@ def main():
     global status
     global data
     # checking the version of docker installed (or not)
-    version = docker_check()
-    version = str(version)
+    # print version
+    version = str(docker_check())
 
     # build running container list
     containers = client.containers.list()
@@ -60,10 +60,6 @@ def main():
     try:
         for container in containers:
             stat = container.stats(decode=False, stream=False)
-
-            # for debuging
-            # print repr(stat)
-            # print container.name
 
             # calculating CPU usage
             cpu_usage = calculate_CPU_percent(stat)

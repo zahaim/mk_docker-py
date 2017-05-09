@@ -71,14 +71,14 @@ def main():
                 net_total = str(stat['networks'].values()[0]['rx_bytes'] + \
                 stat['networks'].values()[0]['tx_bytes'])
             except KeyError:
-                net_total = 0
+                net_total = '0'
             data = data + \
             'CPU_' + container.name + '=' + \
             cpu_usage + ';;;0;100' + '|' \
             'MEM_' + container.name + '=' + \
             mem_usage + ';;;0;' + mem_total + '|' \
             'NET_' + container.name + '=' + \
-            mem_usage + ';;;0;|'
+            net_total + ';;;0;|'
         running = 'RUNNING_CONTAINERS=' + str(len(containers))
         data = data + running + ' ' + running
     except KeyError:

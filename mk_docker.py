@@ -63,22 +63,24 @@ def main():
 
             # calculating CPU usage
             cpu_usage = calculate_CPU_percent(stat)
-            # getting MEM and NET data from stat
+            # getting MEM stats
             mem_usage = str(stat['memory_stats']['usage'])
             mem_total = str(stat['memory_stats']['limit'])
+
+            data = data + \
+            'CPU_' + container.name + '=' + \
+            cpu_usage + ';;;0;100' + '|' + \
+            'MEM_' + container.name + '=' + \
+            mem_usage + ';;;0;' + mem_total + '|'
+
             # handling containers using host=net
             try:
                 net_total = str(stat['networks'].values()[0]['rx_bytes'] + \
                 stat['networks'].values()[0]['tx_bytes'])
+                data = data + 'NET_' + container.name + '=' + \
+                net_total + ';;;0;|'
             except KeyError:
                 net_total = '0'
-            data = data + \
-            'CPU_' + container.name + '=' + \
-            cpu_usage + ';;;0;100' + '|' \
-            'MEM_' + container.name + '=' + \
-            mem_usage + ';;;0;' + mem_total + '|' \
-            'NET_' + container.name + '=' + \
-            net_total + ';;;0;|'
         running = 'RUNNING_CONTAINERS=' + str(len(containers))
         data = data + running + ' ' + running
     except KeyError:

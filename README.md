@@ -16,4 +16,7 @@ of running containers.
 ## Building it
 As it requires additional pip packages it seemed that making it a executable file was the best solution. It was done with:
 <br> `pyinstaller --onefile mk_docker.py` <br>
+
+You can find a built file in ./dist/mk_docker after the build.
+
 But any other tool for python would probably do the job. Handling pip with configuration management on a target host is also an option.

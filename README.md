@@ -2,9 +2,9 @@
 
 ## Just wanted to have a check for all containers on a host.
 
-# Build it with `pyinstaller --onefile mk_docker.py`
-# Put it to /usr/lib/check_mk/local
-# Reinventory of check_mk host - and you should see new service (Container check)
+### Build it with `pyinstaller --onefile mk_docker.py`
+### Put it to /usr/lib/check_mk/local
+### Reinventory of check_mk host - and you should see new service (Container check)
 
 
 ## Checks

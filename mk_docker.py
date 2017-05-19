@@ -68,8 +68,13 @@ def main():
                 cpu_usage = '0'
 
             # getting MEM stats
-            mem_usage = str(stat['memory_stats']['usage'])
-            mem_total = str(stat['memory_stats']['limit'])
+            try:
+                mem_usage = str(stat['memory_stats']['usage'])
+                mem_total = str(stat['memory_stats']['limit'])
+            except KeyError:
+                mem_usage = '0'
+                mem_total = '0'
+
 
             data = data + \
             'CPU_' + container.name + '=' + \

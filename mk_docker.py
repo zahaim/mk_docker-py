@@ -62,7 +62,11 @@ def main():
             stat = container.stats(decode=False, stream=False)
 
             # calculating CPU usage
-            cpu_usage = calculate_CPU_percent(stat)
+            try:
+                cpu_usage = calculate_CPU_percent(stat)
+            except KeyError:
+                cpu_usage = '0'
+
             # getting MEM stats
             mem_usage = str(stat['memory_stats']['usage'])
             mem_total = str(stat['memory_stats']['limit'])

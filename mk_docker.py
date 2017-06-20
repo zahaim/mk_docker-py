@@ -59,6 +59,7 @@ def main():
 
     try:
         for container in containers:
+            # getting statistics
             stat = container.stats(decode=False, stream=False)
 
             # calculating CPU usage
@@ -75,21 +76,21 @@ def main():
                 mem_usage = '0'
                 mem_total = '0'
 
+            # getting NETwork statistics
+            try:
+                net_total = str(stat['networks'].values()[0]['rx_bytes'] + \
+                stat['networks'].values()[0]['tx_bytes'])
+            except KeyError:
+                net_total = '0'
 
             data = data + \
             'CPU_' + container.name + '=' + \
             cpu_usage + ';;;0;100' + '|' + \
             'MEM_' + container.name + '=' + \
-            mem_usage + ';;;0;' + mem_total + '|'
+            mem_usage + ';;;0;' + mem_total + '|' \
+            'NET_' + container.name + '=' + \
+            net_total + ';;;0;|'
 
-            # handling containers using host=net
-            try:
-                net_total = str(stat['networks'].values()[0]['rx_bytes'] + \
-                stat['networks'].values()[0]['tx_bytes'])
-                data = data + 'NET_' + container.name + '=' + \
-                net_total + ';;;0;|'
-            except KeyError:
-                net_total = '0'
         running = 'RUNNING_CONTAINERS=' + str(len(containers))
         data = data + running + ' ' + running
     except KeyError:

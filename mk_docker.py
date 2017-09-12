@@ -35,14 +35,14 @@ def docker_check():
         message = status + data + ' Docker ver: ' + version
         print message
         sys.exit(1)
-
-    return version
+    else:
+        return version
 
 def calculate_CPU_percent(stat):
     cpu_Delta = stat['cpu_stats']['cpu_usage']['total_usage'] - stat['precpu_stats']['cpu_usage']['total_usage']
     system_Delta = stat['cpu_stats']['system_cpu_usage'] - stat['precpu_stats']['system_cpu_usage']
-    cpu_percent = str(float(cpu_Delta)/system_Delta * \
-    len(stat['cpu_stats']['cpu_usage']['percpu_usage']) * 100)
+    cpu_percent = float(cpu_Delta)/system_Delta * \
+    len(stat['cpu_stats']['cpu_usage']['percpu_usage']) * 100
 
     return cpu_percent
 
@@ -51,11 +51,15 @@ def main():
     global status
     global data
     # checking the version of docker installed (or not)
-    # print version
     version = str(docker_check())
 
     # build running container list
     containers = client.containers.list()
+
+    # initialization of variables
+    total_cpu_usage = 0
+    total_mem_usage = 0
+    total_mem_total = 0
 
     try:
         for container in containers:
@@ -66,15 +70,20 @@ def main():
             try:
                 cpu_usage = calculate_CPU_percent(stat)
             except KeyError:
-                cpu_usage = '0'
+                cpu_usage = 0
 
-            # getting MEM stats
+            total_cpu_usage += cpu_usage
+
+            # getting MEMory stats
             try:
-                mem_usage = str(stat['memory_stats']['usage'])
-                mem_total = str(stat['memory_stats']['limit'])
+                mem_usage = stat['memory_stats']['usage']
+                mem_total = stat['memory_stats']['limit']
             except KeyError:
-                mem_usage = '0'
-                mem_total = '0'
+                mem_usage = 0
+                mem_total = 0
+
+            total_mem_usage += mem_usage
+            total_mem_total += mem_total
 
             # getting NETwork statistics
             try:
@@ -85,14 +94,17 @@ def main():
 
             data = data + \
             'CPU_' + container.name + '=' + \
-            cpu_usage + ';;;0;100' + '|' + \
+            str(cpu_usage) + ';;;0;100' + '|' + \
             'MEM_' + container.name + '=' + \
-            mem_usage + ';;;0;' + mem_total + '|' \
+            str(mem_usage) + ';;;0;' + str(mem_total) + '|' \
             'NET_' + container.name + '=' + \
             net_total + ';;;0;|'
 
+        total_cpu_usage = 'TOTAL_CPU_USAGE=' + str(total_cpu_usage) + ';;;0;100' + '|'
+        total_mem_usage = 'TOTAL_MEM_USAGE=' + str(total_mem_usage) + \
+        ';;;0;' + str(total_mem_total) + '|'
         running = 'RUNNING_CONTAINERS=' + str(len(containers))
-        data = data + running + ' ' + running
+        data = data + total_cpu_usage + total_mem_usage + running + ' ' + running
     except KeyError:
         status = '1'
         data = data + 'No running containers!'

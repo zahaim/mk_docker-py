@@ -12,6 +12,8 @@
 * cpu
 * network
 * number
+* total cpu used by containers
+* total memory used by containers
 of running containers.
 
 ## PIP Requirements
